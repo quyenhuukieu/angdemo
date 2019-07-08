@@ -24,10 +24,6 @@ var server = app.listen(process.env.PORT || 8080, function () {
   console.log("App now running on port", port);
 });
 
-// const corsOptions = {
-//   origin: 'http://localhost:8080'
-// }
-
 var allowedOrigins = ['http://localhost:8080',
                       'https://qkspringdemo.herokuapp.com'];
 app.use(cors({
@@ -43,8 +39,6 @@ app.use(cors({
     return callback(null, true);
   }
 }));
-
-// app.use(cors(corsOptions));
 
 //allow OPTIONS on just one resource
 // app.options('/the/resource/you/request', cors())
