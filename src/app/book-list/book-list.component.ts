@@ -9,7 +9,7 @@ import { BookService } from '../book.service';
 export class BookListComponent implements OnInit {
 
   public books = [];
-  public greeting: string;
+  public greeting;
 
   constructor(private _bookService: BookService) { }
 
@@ -17,6 +17,9 @@ export class BookListComponent implements OnInit {
     // this.books = this._bookService.getBooks();
     this._bookService.getGreeting()
       .subscribe(data => this.greeting = data);
+
+    this._bookService.getAllBooks()
+      .subscribe(data => this.books = data);
   }
 
 }
