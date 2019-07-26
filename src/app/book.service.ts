@@ -8,14 +8,22 @@ import { Observable } from 'rxjs';
 })
 export class BookService {
 
-  private _baseUrlHeroku: string = "https://qkspringdemo.herokuapp.com";
+  private _baseUrlHeroku: string = "https://bookserviceapi.herokuapp.com";
   private _baseUrllocal: string = "http://localhost:8081";
-  private _apiGreeting: string = "/api/greeting";
-  private _apiGetBooks: string = "/api/books";
+  private _apiGreeting: string = "/api/book/greeting";
+  private _apiGetBooks: string = "/api/book/findall";
 
   constructor(private http: HttpClient) { }
 
-  private headerDict = {
+  private headerDictText = {
+    'Content-Type': 'text/plain',
+    'Accept': 'text/plain',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Content-Length, X-Requested-With'
+  };
+
+  private headerDictJson = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'Access-Control-Allow-Origin': '*',
@@ -23,27 +31,20 @@ export class BookService {
     'Access-Control-Allow-Headers': 'Content-Type, Content-Length, X-Requested-With'
   };
 
-  private requestOptions = {
-    headers: new HttpHeaders(this.headerDict),
+  private requestOptionsText = {
+    headers: new HttpHeaders(this.headerDictText),
+  };
+
+  private requestOptionsJson = {
+    headers: new HttpHeaders(this.headerDictJson),
   };
 
   getGreeting() {
-    return this.http.get<string>(this._baseUrlHeroku + this._apiGreeting, this.requestOptions);
+    return this.http.get<string>(this._baseUrlHeroku + this._apiGreeting, this.requestOptionsText);
   }
 
   getAllBooks() {
-    return this.http.get<IBook[]>(this._baseUrlHeroku + this._apiGetBooks, this.requestOptions);
+    return this.http.get<IBook[]>(this._baseUrlHeroku + this._apiGetBooks, this.requestOptionsJson);
   }
 
-  getBooks() {
-    return [
-      {"id": 1, "title": "Harry Potter", "author": "J.K. Rowling"},
-      {"id": 2, "title": "The Lord of The Rings", "author": "J.R.R. Tolkien"},
-      {"id": 3, "title": "The Chronicles of Narnia", "author": "C.S. Lewis"}
-    ];
-  }
-
-  // getBooks(): Observable<IBook[]> {
-  //   return this.http.get<IBook[]>(this._baseUrl);
-  // }
 }

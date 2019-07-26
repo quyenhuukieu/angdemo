@@ -25,7 +25,7 @@ var server = app.listen(process.env.PORT || 8080, function () {
 });
 
 var allowedOrigins = ['http://localhost:8080',
-                      'https://qkspringdemo.herokuapp.com'];
+                      'https://bookserviceapi.herokuapp.com'];
 app.use(cors({
   origin: function(origin, callback){
     // allow requests with no origin
